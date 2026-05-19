@@ -1,0 +1,40 @@
+{
+  "name": "Valid genesis receipt",
+  "description": "First receipt in a chain. action_index is 0. chain_prev MUST be SHA-256 of UTF-8 bytes of agent_id. Signature MUST verify under the test public key.",
+  "expected": "pass",
+  "expected_failure_reason": null,
+  "inputs": {
+    "private_key_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+    "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "agent_id": "did:dcs:test:public-test-agent-001",
+    "receipts": [
+      {
+        "version": "r+2/0.1.0",
+        "agent_id": "did:dcs:test:public-test-agent-001",
+        "action_id": "00000000-0000-4000-8000-000000000001",
+        "action_index": 0,
+        "action_type": "agent.init",
+        "timestamp": "2026-05-20T00:00:00.000Z",
+        "principal": {
+          "type": "system",
+          "id": "system:test-runner"
+        },
+        "context": {
+          "session_id": "01HXYZ000000000000000000",
+          "parent_action_id": null
+        },
+        "payload_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "payload_schema": "https://schemas.dcslabs.ai/r2/payload/agent.init/v1",
+        "chain_prev": "sha256:COMPUTED_AT_RUNTIME",
+        "chain_self": "sha256:COMPUTED_AT_RUNTIME",
+        "signature": "ed25519:COMPUTED_AT_RUNTIME"
+      }
+    ]
+  },
+  "notes": [
+    "chain_prev for action_index 0 MUST equal SHA-256 of UTF-8 bytes of agent_id string.",
+    "chain_self MUST equal SHA-256 of canonical JSON with chain_self and signature set to null.",
+    "signature MUST be Ed25519 over canonical JSON with signature set to null (chain_self set to computed value).",
+    "The 'COMPUTED_AT_RUNTIME' values are placeholders; conformance runners compute and compare them."
+  ]
+}
