@@ -1,0 +1,60 @@
+{
+  "name": "@trdnetwork/r2-verify",
+  "version": "0.1.2",
+  "description": "Reference verifier for the R+2 Open Provenance Standard — cryptographically verify AI agent action receipts (Ed25519 + RFC 8785 canonical JSON).",
+  "type": "module",
+  "main": "./lib/verify.js",
+  "module": "./lib/verify.js",
+  "exports": {
+    ".": {
+      "import": "./lib/verify.js",
+      "default": "./lib/verify.js"
+    }
+  },
+  "bin": {
+    "r2-verify": "bin/r2-verify.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "r2",
+    "provenance",
+    "ai-agents",
+    "agent-economy",
+    "ed25519",
+    "verification",
+    "cryptographic-receipts",
+    "dcs-labs",
+    "open-standard"
+  ],
+  "author": "DCS AI Technologies <standards@dcslabs.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DCS-LabsAI/r2-standard.git",
+    "directory": "verifier"
+  },
+  "homepage": "https://dcslabs.ai/standard",
+  "bugs": {
+    "url": "https://github.com/DCS-LabsAI/r2-standard/issues",
+    "email": "standards@dcslabs.ai"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.4.0",
+    "canonicalize": "^2.0.0"
+  },
+  "scripts": {
+    "test": "node test/verify.test.js",
+    "conformance": "node bin/r2-verify.js --test-vectors ../spec/test-vectors",
+    "scale": "node test/scale.test.js",
+    "gen-vectors": "node scripts/gen-vectors.mjs",
+    "lint": "node --check bin/r2-verify.js && node --check lib/verify.js && node --check lib/conformance.js"
+  }
+}

@@ -1,0 +1,9 @@
+test/
+.gitignore
+.npmignore
+node_modules/
+package-lock.json
+.DS_Store
+*.log
+.env
+.env.local
