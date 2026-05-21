@@ -1,8 +1,8 @@
 {
-  "name": "Valid genesis receipt",
-  "description": "First receipt in a chain. prev_receipt_cid is null. Signature verifies under the test public key.",
-  "expected": "pass",
-  "expected_check": null,
+  "name": "Schema violation — missing required field",
+  "description": "The required `nonce` field has been removed. The verifier must reject at the schema check.",
+  "expected": "fail",
+  "expected_check": "Schema",
   "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
   "chain": false,
   "receipts": [
@@ -17,7 +17,6 @@
       },
       "occurred_at": "2026-05-20T00:00:00.000Z",
       "prev_receipt_cid": null,
-      "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
       "extensions": {},
       "signature": "QHDAdY11qyYx3EdXqA1M-Bz66uqCbNDRQ76zqNh8FaQxQIzve5tQMk7Z9jg97hpPbVOFsy7l6Fh1_CieiYvgDg"
     }

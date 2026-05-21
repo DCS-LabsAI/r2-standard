@@ -1,13 +1,13 @@
 {
-  "name": "Valid genesis receipt",
-  "description": "First receipt in a chain. prev_receipt_cid is null. Signature verifies under the test public key.",
-  "expected": "pass",
-  "expected_check": null,
+  "name": "Unsupported spec version",
+  "description": "spec_version is r2/v0.2. A verifier for r2/v0.1 must reject it rather than guess.",
+  "expected": "fail",
+  "expected_check": "Spec version",
   "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
   "chain": false,
   "receipts": [
     {
-      "spec_version": "r2/v0.1",
+      "spec_version": "r2/v0.2",
       "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
       "agent_id": "did:dcs:test:public-test-agent-001",
       "action_id": "00000000-0000-4000-8000-000000000001",
@@ -19,7 +19,7 @@
       "prev_receipt_cid": null,
       "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
       "extensions": {},
-      "signature": "QHDAdY11qyYx3EdXqA1M-Bz66uqCbNDRQ76zqNh8FaQxQIzve5tQMk7Z9jg97hpPbVOFsy7l6Fh1_CieiYvgDg"
+      "signature": "HF9zxYvgaFJ4v8KgmqXftgvon6g-ep_Iz5yYRvJncS1FPiXuizl8Ahg79rkHoyVfTJPDq7KO6WFZ-lFPbu3TAQ"
     }
   ]
 }

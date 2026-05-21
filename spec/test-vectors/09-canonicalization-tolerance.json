@@ -1,34 +1,27 @@
 {
   "name": "Canonicalization tolerance",
-  "description": "Two receipts that are semantically identical but serialized differently (different key orderings, different whitespace, different number formats). After RFC 8785 JCS canonicalization, they MUST produce identical bytes and therefore identical chain_self hashes and signatures. A conformant verifier MUST verify both as equivalent.",
+  "description": "Receipt 01 with keys in reverse order at every nesting level. JCS canonicalization must normalise it to identical bytes, so the signature still verifies.",
   "expected": "pass",
-  "expected_failure_reason": null,
-  "inputs": {
-    "private_key_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
-    "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
-    "agent_id": "did:dcs:test:public-test-agent-001",
-    "receipts": [
-      {
-        "version": "r+2/0.1.0",
-        "agent_id": "did:dcs:test:public-test-agent-001",
-        "action_id": "00000000-0000-4000-8000-000000000001",
-        "action_index": 0,
-        "action_type": "agent.init",
-        "timestamp": "2026-05-20T00:00:00.000Z",
-        "principal": {"type": "system", "id": "system:test-runner"},
-        "context": {"session_id": "01HXYZ000000000000000000", "parent_action_id": null},
-        "payload_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "payload_schema": "https://schemas.dcslabs.ai/r2/payload/agent.init/v1",
-        "chain_prev": "sha256:COMPUTED_AT_RUNTIME",
-        "chain_self": "sha256:COMPUTED_AT_RUNTIME",
-        "signature": "ed25519:COMPUTED_AT_RUNTIME"
-      }
-    ],
-    "alternative_serialization_note": "A conformance runner SHOULD also produce a second variant of this receipt with: (a) shuffled key order at every nesting level, (b) different (but valid) whitespace, (c) integers expressed in scientific notation (e.g., 0 as 0e0 — illegal per JSON spec actually, skip if your library rejects), (d) string escaping variants (e.g., \\u0041 vs A). After JCS canonicalization, all variants MUST hash identically."
-  },
-  "notes": [
-    "This vector tests that the implementation uses RFC 8785 JCS correctly.",
-    "Implementations that sort keys ad-hoc rather than via JCS will likely fail this with edge-case strings.",
-    "The most common bug: floating-point number canonicalization. JCS requires specific number formatting that ad-hoc implementations miss."
+  "expected_check": null,
+  "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+  "chain": false,
+  "receipts": [
+    {
+      "signature": "IElLaMfSenZ4e_JM2td-DR21AhY4T0mp0Ri7OjdpvCdJCEynxFCxvEkZJFZ6X1ZNZ450SzIPsOj5-tfThFt-BQ",
+      "extensions": {},
+      "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
+      "prev_receipt_cid": null,
+      "occurred_at": "2026-05-20T00:00:00.000Z",
+      "action_data": {
+        "tier": "free",
+        "region": "eu",
+        "runtime": "test"
+      },
+      "action_type": "agent/init",
+      "action_id": "00000000-0000-4000-8000-000000000001",
+      "agent_id": "did:dcs:test:public-test-agent-001",
+      "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+      "spec_version": "r2/v0.1"
+    }
   ]
 }

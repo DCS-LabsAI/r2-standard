@@ -1,33 +1,25 @@
 {
-  "name": "Tampered Ed25519 signature",
-  "description": "A receipt that was originally validly signed has had one byte of its signature flipped post-hoc. A conformant verifier MUST detect signature verification failure and reject the receipt.",
+  "name": "Tampered signature",
+  "description": "A genuine signature with its first byte flipped. Ed25519 verification must fail.",
   "expected": "fail",
-  "expected_failure_reason": "signature_verification_failed",
-  "inputs": {
-    "private_key_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
-    "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
-    "agent_id": "did:dcs:test:public-test-agent-001",
-    "receipts": [
-      {
-        "version": "r+2/0.1.0",
-        "agent_id": "did:dcs:test:public-test-agent-001",
-        "action_id": "00000000-0000-4000-8000-000000000001",
-        "action_index": 0,
-        "action_type": "agent.init",
-        "timestamp": "2026-05-20T00:00:00.000Z",
-        "principal": {"type": "system", "id": "system:test-runner"},
-        "context": {"session_id": "01HXYZ000000000000000000", "parent_action_id": null},
-        "payload_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "payload_schema": "https://schemas.dcslabs.ai/r2/payload/agent.init/v1",
-        "chain_prev": "sha256:COMPUTED_AT_RUNTIME",
-        "chain_self": "sha256:COMPUTED_AT_RUNTIME",
-        "signature": "ed25519:COMPUTED_AT_RUNTIME_THEN_FLIP_FIRST_BYTE"
-      }
-    ]
-  },
-  "notes": [
-    "Conformance runner: compute the genuine signature, then flip the first byte of the binary signature before base64-encoding.",
-    "Signature MUST then fail Ed25519 verification.",
-    "Even constant-time implementations should reject; this is about correctness, not timing."
+  "expected_check": "Signature",
+  "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+  "chain": false,
+  "receipts": [
+    {
+      "spec_version": "r2/v0.1",
+      "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+      "agent_id": "did:dcs:test:public-test-agent-001",
+      "action_id": "00000000-0000-4000-8000-000000000001",
+      "action_type": "agent/init",
+      "action_data": {
+        "runtime": "test"
+      },
+      "occurred_at": "2026-05-20T00:00:00.000Z",
+      "prev_receipt_cid": null,
+      "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
+      "extensions": {},
+      "signature": "v3DAdY11qyYx3EdXqA1M-Bz66uqCbNDRQ76zqNh8FaQxQIzve5tQMk7Z9jg97hpPbVOFsy7l6Fh1_CieiYvgDg"
+    }
   ]
 }

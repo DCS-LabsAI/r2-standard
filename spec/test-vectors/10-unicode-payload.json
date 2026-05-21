@@ -1,6 +1,6 @@
 {
-  "name": "Valid genesis receipt",
-  "description": "First receipt in a chain. prev_receipt_cid is null. Signature verifies under the test public key.",
+  "name": "Unicode payload",
+  "description": "action_data carrying CJK, RTL, emoji and combining characters. UTF-8 canonicalization must be byte-exact so the signature verifies.",
   "expected": "pass",
   "expected_check": null,
   "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
@@ -11,15 +11,19 @@
       "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
       "agent_id": "did:dcs:test:public-test-agent-001",
       "action_id": "00000000-0000-4000-8000-000000000001",
-      "action_type": "agent/init",
+      "action_type": "memory/write",
       "action_data": {
-        "runtime": "test"
+        "note_en": "hello world",
+        "note_ja": "こんにちは世界",
+        "note_ar": "مرحبا بالعالم",
+        "note_emoji": "🛰️🔐✓",
+        "note_combining": "é"
       },
       "occurred_at": "2026-05-20T00:00:00.000Z",
       "prev_receipt_cid": null,
       "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
       "extensions": {},
-      "signature": "QHDAdY11qyYx3EdXqA1M-Bz66uqCbNDRQ76zqNh8FaQxQIzve5tQMk7Z9jg97hpPbVOFsy7l6Fh1_CieiYvgDg"
+      "signature": "CZ4l0qN2UWF9fYt73QfI1U6ATEgpuGcF3W0DZJapnrXgvOyzRI9oMsXwJ7fYWtVdDutLLZMLO_FWYGjS2p_mCA"
     }
   ]
 }

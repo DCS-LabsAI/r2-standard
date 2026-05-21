@@ -1,8 +1,8 @@
 {
-  "name": "Broken chain pointer",
-  "description": "Receipt 2 is validly signed but its prev_receipt_cid does not match receipt 1's CID. The verifier must reject it at the chain-pointer check.",
-  "expected": "fail",
-  "expected_check": "Chain pointer",
+  "name": "Normal 3-receipt chain",
+  "description": "Three valid receipts. Each prev_receipt_cid equals the canonical CID of the prior receipt.",
+  "expected": "pass",
+  "expected_check": null,
   "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
   "chain": true,
   "receipts": [
@@ -31,10 +31,25 @@
         "memory_id": "mem_001"
       },
       "occurred_at": "2026-05-20T00:00:00.000Z",
-      "prev_receipt_cid": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "prev_receipt_cid": "sha256:f72d6d3c605238c2d03a88fa084338387b01fa7da452f392cb354b8d6051d506",
       "nonce": "AgICAgICAgICAgICAgICAg",
       "extensions": {},
-      "signature": "ZcJFAqoAZg_NElVZRsn87lkyXc7H_Se6ypwjvxQ2vxapGmKZWBgD7K6HOAyo3Pxk57NycLqAHUi1b-zIrsh2Cw"
+      "signature": "bbql3mmIzs-4gFeK4Q0r1dG17qXHi-c0Oah6FsiKppboqfR4PO_x7M__uz1gALn2PUVDB_KmrnfNT8MpaFFcBw"
+    },
+    {
+      "spec_version": "r2/v0.1",
+      "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+      "agent_id": "did:dcs:test:public-test-agent-001",
+      "action_id": "00000000-0000-4000-8000-000000000003",
+      "action_type": "memory/write",
+      "action_data": {
+        "memory_id": "mem_002"
+      },
+      "occurred_at": "2026-05-20T00:00:00.000Z",
+      "prev_receipt_cid": "sha256:ba2057aec1b3dfc24f723a65f3bd3b031d1937badf1727d69f020ceee3a7fcb8",
+      "nonce": "AwMDAwMDAwMDAwMDAwMDAw",
+      "extensions": {},
+      "signature": "fv993MK49ru4BxVSxJDZOgCA40xEdiu1jl5GzhBmwDoUgPWVzsN76iKDtNXYkKL4Dkf4ttxZofXlfHO9CWreAQ"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "suite": "R+2 conformance vectors",
+  "spec_version": "r2/v0.1",
+  "generated_by": "@trdnetwork/r2-verify scripts/gen-vectors.mjs",
+  "test_key_rfc8032": "§7.1 Test 1 — seed 9d61b1…ae7f60 (public; never use in production)",
+  "count": 10,
+  "vectors": [
+    "01-genesis-valid.json",
+    "02-normal-chain.json",
+    "03-broken-chain-prev.json",
+    "04-tampered-payload.json",
+    "05-tampered-signature.json",
+    "06-wrong-pubkey.json",
+    "07-wrong-spec-version.json",
+    "08-schema-missing-field.json",
+    "09-canonicalization-tolerance.json",
+    "10-unicode-payload.json"
+  ]
+}

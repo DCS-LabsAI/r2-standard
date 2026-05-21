@@ -1,8 +1,8 @@
 {
-  "name": "Valid genesis receipt",
-  "description": "First receipt in a chain. prev_receipt_cid is null. Signature verifies under the test public key.",
-  "expected": "pass",
-  "expected_check": null,
+  "name": "Tampered payload",
+  "description": "action_data was modified after signing. Canonical bytes no longer match the signature.",
+  "expected": "fail",
+  "expected_check": "Signature",
   "expected_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
   "chain": false,
   "receipts": [
@@ -11,15 +11,16 @@
       "agent_pubkey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
       "agent_id": "did:dcs:test:public-test-agent-001",
       "action_id": "00000000-0000-4000-8000-000000000001",
-      "action_type": "agent/init",
+      "action_type": "memory/write",
       "action_data": {
-        "runtime": "test"
+        "memory_id": "mem_001",
+        "note": "TAMPERED"
       },
       "occurred_at": "2026-05-20T00:00:00.000Z",
       "prev_receipt_cid": null,
       "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
       "extensions": {},
-      "signature": "QHDAdY11qyYx3EdXqA1M-Bz66uqCbNDRQ76zqNh8FaQxQIzve5tQMk7Z9jg97hpPbVOFsy7l6Fh1_CieiYvgDg"
+      "signature": "evQpzGaXFBIlwIc8dv3mmznCVAuZb_SMHPkiTWQDwKY97uXYDvM56NpfaF2AjE85Fr3Awct54mMUjgqRIQeXCg"
     }
   ]
 }
