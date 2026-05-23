@@ -185,6 +185,90 @@ export function computeReceiptCid(signedReceipt) {
   return "sha256:" + sha256Hex(canonical);
 }
 
+/**
+ * NonceLedger — tracks every nonce seen across a set of R+2 receipts and
+ * rejects any repeat. A single-receipt verifier genuinely cannot detect
+ * cross-receipt replay (it sees only one receipt), so nonce-uniqueness must
+ * be enforced at the chain/ledger level. This class provides that ledger.
+ */
+export class NonceLedger {
+  constructor() {
+    this._seen = new Map(); // nonce -> index of the receipt that first used it
+  }
+  /**
+   * Records a nonce. Returns { ok: true } if newly seen, or
+   * { ok: false, firstIndex } if it collides with a previously-seen nonce.
+   */
+  record(nonce, index) {
+    if (this._seen.has(nonce)) {
+      return { ok: false, firstIndex: this._seen.get(nonce) };
+    }
+    this._seen.set(nonce, index);
+    return { ok: true };
+  }
+  has(nonce) {
+    return this._seen.has(nonce);
+  }
+}
+
+/**
+ * Verifies an ordered set/chain of R+2 receipts.
+ *
+ * Runs the full per-receipt verifyReceipt() check on every receipt AND
+ * enforces nonce-uniqueness across the whole set via a NonceLedger — closing
+ * the cross-receipt replay gap that a single-receipt verifier cannot see.
+ * When chainLinked is true, each receipt (after the first) is also checked
+ * against its predecessor's CID via §9 chain-pointer verification.
+ *
+ * @param {Object[]} receipts - Ordered array of R+2 receipt objects
+ * @param {string} expectedPubkey - base64url-encoded Ed25519 public key
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.chainLinked=false] - Verify prev_receipt_cid linkage between adjacent receipts
+ * @param {boolean} [opts.skipTimestampCheck=false] - Passed through to verifyReceipt
+ * @returns {Promise<{ok: boolean, receipts: Array, error?: string, collision?: {index: number, firstIndex: number, nonce: string}}>}
+ */
+export async function verifyChain(receipts, expectedPubkey, opts = {}) {
+  if (!Array.isArray(receipts)) {
+    return { ok: false, receipts: [], error: "verifyChain: receipts must be an array" };
+  }
+  const ledger = new NonceLedger();
+  const results = [];
+
+  for (let i = 0; i < receipts.length; i++) {
+    const receipt = receipts[i];
+    const perReceiptOpts = { skipTimestampCheck: opts.skipTimestampCheck };
+    if (opts.chainLinked && i > 0) {
+      perReceiptOpts.previousReceipt = receipts[i - 1];
+    }
+    const r = await verifyReceipt(receipt, expectedPubkey, perReceiptOpts);
+    results.push({ index: i, ...r });
+
+    if (!r.ok) {
+      return {
+        ok: false,
+        receipts: results,
+        error: `Receipt index ${i} failed per-receipt verification: ${r.error}`,
+      };
+    }
+
+    // —— Nonce-uniqueness ledger check (cross-receipt replay detection) ——
+    const nonce = receipt && receipt.nonce;
+    const seen = ledger.record(nonce, i);
+    if (!seen.ok) {
+      const collision = { index: i, firstIndex: seen.firstIndex, nonce };
+      return {
+        ok: false,
+        receipts: results,
+        collision,
+        error: `Nonce replay detected: receipt index ${i} reuses nonce ` +
+          `"${nonce}" first seen at receipt index ${seen.firstIndex}`,
+      };
+    }
+  }
+
+  return { ok: true, receipts: results };
+}
+
 export const SPEC = {
   version: SPEC_VERSION,
   url: "https://dcslabs.ai/standard",
